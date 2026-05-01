@@ -1,619 +1,166 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mango's Greenville — World Cup 2026 VIP Access</title>
+<title>Mango's Greenville — Copa Mundial 2026 · World Cup 2026 VIP</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;0,700;1,300&family=Bebas+Neue&family=Montserrat:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
 :root {
-  --gold: #C9A84C;
-  --gold-light: #E8C96A;
-  --gold-dim: rgba(201,168,76,0.15);
-  --dark: #080810;
-  --dark2: #0F0F20;
-  --dark3: #161628;
-  --cream: #F5EDD8;
-  --text: #D4C8A8;
-  --muted: rgba(212,200,168,0.45);
+  --gold: #C9A84C; --gold-light: #E8C96A; --gold-dim: rgba(201,168,76,0.15);
+  --dark: #080810; --dark2: #0F0F20; --dark3: #161628;
+  --cream: #F5EDD8; --text: #D4C8A8; --muted: rgba(212,200,168,0.45);
 }
-
 html { scroll-behavior: smooth; }
+body { background: var(--dark); color: var(--text); font-family: 'Montserrat', sans-serif; overflow-x: hidden; cursor: none; }
 
-body {
-  background: var(--dark);
-  color: var(--text);
-  font-family: 'Montserrat', sans-serif;
-  overflow-x: hidden;
-  cursor: none;
+/* LANG TOGGLE */
+.lang-toggle {
+  position: fixed; top: 16px; right: 20px; z-index: 9000;
+  display: flex; align-items: center; gap: 2px;
+  background: rgba(8,8,16,0.88); border: 1px solid rgba(201,168,76,0.4);
+  border-radius: 100px; padding: 4px; backdrop-filter: blur(14px);
 }
+.lang-btn {
+  padding: 7px 16px; border-radius: 100px; border: none;
+  font-family: 'Montserrat', sans-serif; font-size: 0.65rem;
+  font-weight: 800; letter-spacing: 1.5px; cursor: pointer;
+  transition: all 0.2s; background: transparent; color: rgba(212,200,168,0.35);
+}
+.lang-btn.active { background: var(--gold); color: var(--dark); }
+.lang-btn:hover:not(.active) { color: var(--gold); }
 
-/* CUSTOM CURSOR */
-.cursor {
-  width: 10px; height: 10px;
-  background: var(--gold);
-  border-radius: 50%;
-  position: fixed;
-  pointer-events: none;
-  z-index: 9999;
-  transform: translate(-50%, -50%);
-  transition: transform 0.1s, width 0.2s, height 0.2s, background 0.2s;
-}
-.cursor-ring {
-  width: 36px; height: 36px;
-  border: 1px solid rgba(201,168,76,0.5);
-  border-radius: 50%;
-  position: fixed;
-  pointer-events: none;
-  z-index: 9998;
-  transform: translate(-50%, -50%);
-  transition: transform 0.15s ease-out, width 0.3s, height 0.3s;
-}
-body:hover .cursor { opacity: 1; }
-a:hover ~ .cursor, button:hover ~ .cursor { width: 6px; height: 6px; background: var(--gold-light); }
+/* CURSOR */
+.cursor { width:10px; height:10px; background:var(--gold); border-radius:50%; position:fixed; pointer-events:none; z-index:9999; transform:translate(-50%,-50%); transition:width .2s,height .2s; }
+.cursor-ring { width:36px; height:36px; border:1px solid rgba(201,168,76,.5); border-radius:50%; position:fixed; pointer-events:none; z-index:9998; transform:translate(-50%,-50%); transition:width .3s,height .3s; }
 
-/* NOISE TEXTURE OVERLAY */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
-  opacity: 0.028;
-  pointer-events: none;
-  z-index: 1000;
-}
+/* NOISE */
+body::before { content:''; position:fixed; inset:0; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E"); opacity:.028; pointer-events:none; z-index:1000; }
 
-/* ─── HERO ─── */
-.hero {
-  min-height: 100vh;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  padding: 40px 24px;
-}
+/* HERO */
+.hero { min-height:100vh; position:relative; display:flex; flex-direction:column; align-items:center; justify-content:center; overflow:hidden; padding:40px 24px; }
+.hero::before { content:''; position:absolute; width:900px; height:900px; background:radial-gradient(circle,rgba(201,168,76,.07) 0%,transparent 65%); top:-200px; left:-200px; animation:drift1 18s ease-in-out infinite alternate; }
+.hero::after { content:''; position:absolute; width:700px; height:700px; background:radial-gradient(circle,rgba(100,60,180,.05) 0%,transparent 65%); bottom:-100px; right:-100px; animation:drift2 22s ease-in-out infinite alternate; }
+@keyframes drift1{to{transform:translate(80px,60px)}} @keyframes drift2{to{transform:translate(-60px,-80px)}}
+.hero-line { position:absolute; width:1px; height:100%; background:linear-gradient(to bottom,transparent,rgba(201,168,76,.2) 30%,rgba(201,168,76,.2) 70%,transparent); left:15%; transform:rotate(8deg); transform-origin:top; }
+.ball { position:absolute; opacity:.06; animation:floatBall linear infinite; pointer-events:none; }
+.ball:nth-child(1){left:8%;top:20%;font-size:2rem;animation-duration:14s}
+.ball:nth-child(2){right:12%;top:40%;font-size:4rem;animation-duration:18s;animation-delay:-6s}
+.ball:nth-child(3){left:55%;top:10%;font-size:1.5rem;animation-duration:11s;animation-delay:-3s}
+.ball:nth-child(4){right:30%;bottom:20%;font-size:3rem;animation-duration:16s;animation-delay:-8s}
+@keyframes floatBall{0%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-30px) rotate(180deg)}100%{transform:translateY(0) rotate(360deg)}}
+.hero-inner { position:relative; z-index:2; text-align:center; max-width:820px; }
+.hero-eyebrow { font-size:.62rem; letter-spacing:6px; color:var(--gold); font-weight:700; text-transform:uppercase; margin-bottom:20px; opacity:0; animation:revealUp .8s .2s forwards ease; }
+.hero-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(4.5rem,13vw,10rem); line-height:.88; letter-spacing:2px; color:var(--cream); margin-bottom:8px; opacity:0; animation:revealUp .9s .4s forwards ease; }
+.hero-title .gold{color:var(--gold)} .hero-title .outlined{-webkit-text-stroke:1px rgba(201,168,76,.5);color:transparent}
+.hero-sub { font-family:'Cormorant Garamond',serif; font-size:clamp(1.1rem,3vw,1.6rem); font-style:italic; font-weight:300; color:var(--muted); margin:20px 0 36px; opacity:0; animation:revealUp .9s .6s forwards ease; }
+.hero-dates { display:flex; align-items:center; justify-content:center; gap:20px; margin-bottom:48px; opacity:0; animation:revealUp .9s .8s forwards ease; flex-wrap:wrap; }
+.hero-date-pill { background:var(--gold-dim); border:1px solid rgba(201,168,76,.3); padding:8px 20px; border-radius:100px; font-size:.7rem; font-weight:700; letter-spacing:2px; color:var(--gold); }
+.hero-date-sep{color:rgba(201,168,76,.3);font-size:1.2rem}
+.hero-cta { display:inline-flex; align-items:center; gap:10px; background:var(--gold); color:var(--dark); font-family:'Montserrat',sans-serif; font-size:.72rem; font-weight:900; letter-spacing:3px; text-transform:uppercase; padding:18px 40px; border:none; cursor:none; border-radius:2px; text-decoration:none; transition:background .2s,transform .2s,box-shadow .2s; opacity:0; animation:revealUp .9s 1s forwards ease; }
+.hero-cta:hover{background:var(--gold-light);transform:translateY(-2px);box-shadow:0 12px 40px rgba(201,168,76,.3)}
+.hero-cta-arrow{transition:transform .2s} .hero-cta:hover .hero-cta-arrow{transform:translateX(4px)}
+.hero-scroll { position:absolute; bottom:32px; left:50%; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; gap:8px; opacity:0; animation:revealUp .8s 1.4s forwards ease; }
+.scroll-line { width:1px; height:50px; background:linear-gradient(to bottom,var(--gold),transparent); animation:scrollPulse 2s ease-in-out infinite; }
+@keyframes scrollPulse{0%,100%{opacity:.4}50%{opacity:1}}
+.scroll-text{font-size:.55rem;letter-spacing:3px;color:var(--muted);text-transform:uppercase}
+@keyframes revealUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
 
-/* Animated background orbs */
-.hero::before {
-  content: '';
-  position: absolute;
-  width: 900px; height: 900px;
-  background: radial-gradient(circle, rgba(201,168,76,0.07) 0%, transparent 65%);
-  top: -200px; left: -200px;
-  animation: drift1 18s ease-in-out infinite alternate;
-}
-.hero::after {
-  content: '';
-  position: absolute;
-  width: 700px; height: 700px;
-  background: radial-gradient(circle, rgba(100,60,180,0.05) 0%, transparent 65%);
-  bottom: -100px; right: -100px;
-  animation: drift2 22s ease-in-out infinite alternate;
-}
-@keyframes drift1 { to { transform: translate(80px, 60px); } }
-@keyframes drift2 { to { transform: translate(-60px, -80px); } }
+/* STAT BAR */
+.stat-bar { background:var(--dark2); border-top:1px solid rgba(201,168,76,.12); border-bottom:1px solid rgba(201,168,76,.12); padding:28px 24px; display:flex; justify-content:center; gap:clamp(24px,6vw,80px); flex-wrap:wrap; }
+.stat{text-align:center}
+.stat-num{font-family:'Bebas Neue',sans-serif;font-size:2.8rem;color:var(--gold);letter-spacing:1px;line-height:1}
+.stat-label{font-size:.6rem;letter-spacing:2.5px;color:var(--muted);text-transform:uppercase;margin-top:4px}
 
-/* Diagonal gold line */
-.hero-line {
-  position: absolute;
-  width: 1px;
-  height: 100%;
-  background: linear-gradient(to bottom, transparent, rgba(201,168,76,0.2) 30%, rgba(201,168,76,0.2) 70%, transparent);
-  left: 15%;
-  transform: rotate(8deg);
-  transform-origin: top;
-}
+/* EVENTS */
+.section{padding:80px 24px;max-width:1100px;margin:0 auto}
+.section-header{text-align:center;margin-bottom:52px}
+.section-tag{font-size:.6rem;letter-spacing:5px;color:var(--gold);font-weight:700;text-transform:uppercase;margin-bottom:14px;display:block}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,5vw,3.6rem);font-weight:600;color:var(--cream);line-height:1.1}
+.section-title em{color:var(--gold);font-style:italic}
+.events-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+.event-card{border:1px solid rgba(201,168,76,.15);border-radius:4px;overflow:hidden;background:var(--dark2);transition:border-color .3s,transform .3s;cursor:none;}
+.event-card:hover{border-color:rgba(201,168,76,.5);transform:translateY(-4px)}
+.event-card-accent{position:absolute;top:0;left:0;right:0;height:3px}
+.event-card-top{padding:24px 24px 20px;position:relative}
+.event-tier{font-size:.55rem;font-weight:900;letter-spacing:2.5px;text-transform:uppercase;padding:4px 10px;border-radius:2px;display:inline-block;margin-bottom:16px}
+.tier-fire{background:rgba(192,57,43,.2);color:#FF6B6B} .tier-gold{background:rgba(201,168,76,.15);color:var(--gold)}
+.event-flags{font-size:2rem;margin-bottom:10px}
+.event-date{font-size:.65rem;font-weight:600;letter-spacing:2px;color:var(--muted);margin-bottom:4px}
+.event-time{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--gold);letter-spacing:1px;line-height:1;margin-bottom:4px}
+.event-match{font-size:.85rem;font-weight:700;color:var(--cream);margin-bottom:12px}
+.event-name{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;color:var(--cream);line-height:1.15}
+.event-card-bottom{border-top:1px solid rgba(201,168,76,.1);padding:14px 24px;display:flex;flex-direction:column;gap:5px}
+.event-perk{font-size:.65rem;color:var(--muted)} .event-perk::before{content:'✦ ';color:var(--gold)}
 
-/* Floating balls */
-.ball {
-  position: absolute;
-  font-size: 3rem;
-  opacity: 0.06;
-  animation: floatBall linear infinite;
-  pointer-events: none;
-}
-.ball:nth-child(1) { left: 8%; top: 20%; font-size: 2rem; animation-duration: 14s; animation-delay: 0s; }
-.ball:nth-child(2) { right: 12%; top: 40%; font-size: 4rem; animation-duration: 18s; animation-delay: -6s; }
-.ball:nth-child(3) { left: 55%; top: 10%; font-size: 1.5rem; animation-duration: 11s; animation-delay: -3s; }
-.ball:nth-child(4) { right: 30%; bottom: 20%; font-size: 3rem; animation-duration: 16s; animation-delay: -8s; }
-@keyframes floatBall {
-  0% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-30px) rotate(180deg); }
-  100% { transform: translateY(0) rotate(360deg); }
-}
+/* FORM SECTION */
+.form-section{background:var(--dark2);border-top:1px solid rgba(201,168,76,.12);border-bottom:1px solid rgba(201,168,76,.12);position:relative;overflow:hidden;}
+.form-section::before{content:'';position:absolute;width:600px;height:600px;background:radial-gradient(circle,rgba(201,168,76,.06) 0%,transparent 60%);top:-200px;right:-100px;pointer-events:none;}
+.form-inner{max-width:620px;margin:0 auto;padding:80px 24px;position:relative;z-index:2}
+.form-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.3);padding:6px 16px;border-radius:100px;font-size:.62rem;font-weight:700;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:28px;}
+.form-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.4rem,5vw,3.8rem);font-weight:600;color:var(--cream);line-height:1.05;margin-bottom:12px;}
+.form-title em{color:var(--gold);font-style:italic}
+.form-desc{font-size:.82rem;color:var(--muted);line-height:1.7;margin-bottom:36px}
+.form-desc strong{color:var(--gold);font-weight:600}
+.benefit-list{margin-bottom:40px;display:flex;flex-direction:column;gap:10px}
+.benefit{display:flex;align-items:center;gap:14px;font-size:.78rem;color:var(--text)}
+.benefit-icon{width:32px;height:32px;background:var(--gold-dim);border:1px solid rgba(201,168,76,.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.85rem;flex-shrink:0;}
+form{display:flex;flex-direction:column;gap:14px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-group{display:flex;flex-direction:column;gap:6px}
+.form-label{font-size:.6rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+.form-input,.form-select{background:rgba(255,255,255,.04);border:1px solid rgba(201,168,76,.2);color:var(--cream);padding:14px 16px;font-family:'Montserrat',sans-serif;font-size:.82rem;border-radius:2px;outline:none;transition:border-color .2s,background .2s;cursor:none;width:100%;}
+.form-input::placeholder{color:rgba(212,200,168,.25)}
+.form-input:focus,.form-select:focus{border-color:rgba(201,168,76,.6);background:rgba(201,168,76,.04)}
+.form-select option{background:var(--dark2);color:var(--cream)}
+.interest-label{font-size:.6rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.interest-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.interest-check{display:flex;align-items:center;gap:8px;cursor:none}
+.interest-check input[type="checkbox"]{appearance:none;width:16px;height:16px;border:1px solid rgba(201,168,76,.35);background:transparent;border-radius:2px;cursor:none;position:relative;flex-shrink:0;transition:all .15s;}
+.interest-check input[type="checkbox"]:checked{background:var(--gold);border-color:var(--gold)}
+.interest-check input[type="checkbox"]:checked::after{content:'✓';position:absolute;color:var(--dark);font-size:.65rem;font-weight:900;top:50%;left:50%;transform:translate(-50%,-50%);}
+.interest-check-label{font-size:.72rem;color:var(--text)}
+.submit-btn{margin-top:10px;background:var(--gold);color:var(--dark);border:none;padding:18px 32px;font-family:'Montserrat',sans-serif;font-size:.78rem;font-weight:900;letter-spacing:3px;text-transform:uppercase;cursor:none;border-radius:2px;transition:background .2s,transform .2s,box-shadow .2s;display:flex;align-items:center;justify-content:center;gap:10px;width:100%;}
+.submit-btn:hover{background:var(--gold-light);transform:translateY(-2px);box-shadow:0 14px 40px rgba(201,168,76,.3)}
+.form-fine{font-size:.6rem;color:rgba(212,200,168,.3);text-align:center;margin-top:12px;line-height:1.6}
+.success-state{display:none;text-align:center;padding:40px 0}
+.success-icon{font-size:3.5rem;margin-bottom:20px}
+.success-title{font-family:'Cormorant Garamond',serif;font-size:2.4rem;color:var(--gold);margin-bottom:12px}
+.success-msg{font-size:.82rem;color:var(--muted);line-height:1.7}
 
-.hero-inner {
-  position: relative;
-  z-index: 2;
-  text-align: center;
-  max-width: 820px;
-}
+/* FINAL BANNER */
+.final-banner{max-width:1100px;margin:0 auto;padding:0 24px 80px}
+.final-card{border:1px solid var(--gold);border-radius:4px;padding:52px 40px;position:relative;overflow:hidden;background:linear-gradient(135deg,var(--dark2),var(--dark3));text-align:center;}
+.final-card::before{content:'🏆';position:absolute;font-size:18rem;opacity:.04;right:-60px;top:50%;transform:translateY(-50%);line-height:1;}
+.final-eyebrow{font-size:.6rem;letter-spacing:5px;color:var(--gold);font-weight:700;text-transform:uppercase;margin-bottom:16px}
+.final-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,8vw,6rem);color:var(--cream);line-height:.9;margin-bottom:16px}
+.final-title span{color:var(--gold)}
+.final-date{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-style:italic;color:var(--muted);margin-bottom:28px}
+.final-perks{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:36px}
+.final-perk{background:var(--gold-dim);border:1px solid rgba(201,168,76,.3);padding:6px 16px;border-radius:100px;font-size:.68rem;font-weight:600;color:var(--gold)}
+.final-cta-group{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.btn-primary{background:var(--gold);color:var(--dark);padding:16px 36px;font-family:'Montserrat',sans-serif;font-size:.72rem;font-weight:900;letter-spacing:2.5px;text-transform:uppercase;border:none;border-radius:2px;cursor:none;transition:all .2s;text-decoration:none;display:inline-block;}
+.btn-primary:hover{background:var(--gold-light);transform:translateY(-2px)}
+.btn-outline{background:transparent;color:var(--gold);padding:16px 36px;font-family:'Montserrat',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;border:1px solid rgba(201,168,76,.4);border-radius:2px;cursor:none;transition:all .2s;text-decoration:none;display:inline-block;}
+.btn-outline:hover{border-color:var(--gold);background:var(--gold-dim)}
 
-.hero-eyebrow {
-  font-size: 0.62rem;
-  letter-spacing: 6px;
-  color: var(--gold);
-  font-weight: 700;
-  text-transform: uppercase;
-  margin-bottom: 20px;
-  opacity: 0;
-  animation: revealUp 0.8s 0.2s forwards ease;
-}
+/* FOOTER */
+footer{border-top:1px solid rgba(201,168,76,.12);padding:40px 24px;text-align:center}
+.footer-logo{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--gold);letter-spacing:3px;margin-bottom:8px}
+.footer-address{font-size:.68rem;color:var(--muted);letter-spacing:1.5px;margin-bottom:20px}
+.footer-social{display:flex;gap:16px;justify-content:center;margin-bottom:20px}
+.social-link{width:38px;height:38px;border:1px solid rgba(201,168,76,.25);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.9rem;text-decoration:none;transition:all .2s;cursor:none;}
+.social-link:hover{border-color:var(--gold);background:var(--gold-dim);transform:translateY(-2px)}
+.footer-fine{font-size:.58rem;color:rgba(212,200,168,.2);letter-spacing:1px}
 
-.hero-title {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(4.5rem, 13vw, 10rem);
-  line-height: 0.88;
-  letter-spacing: 2px;
-  color: var(--cream);
-  margin-bottom: 8px;
-  opacity: 0;
-  animation: revealUp 0.9s 0.4s forwards ease;
-}
-.hero-title .gold { color: var(--gold); }
-.hero-title .outlined {
-  -webkit-text-stroke: 1px rgba(201,168,76,0.5);
-  color: transparent;
-}
-
-.hero-sub {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(1.1rem, 3vw, 1.6rem);
-  font-style: italic;
-  font-weight: 300;
-  color: var(--muted);
-  margin: 20px 0 36px;
-  opacity: 0;
-  animation: revealUp 0.9s 0.6s forwards ease;
-}
-
-.hero-dates {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-  margin-bottom: 48px;
-  opacity: 0;
-  animation: revealUp 0.9s 0.8s forwards ease;
-}
-.hero-date-pill {
-  background: var(--gold-dim);
-  border: 1px solid rgba(201,168,76,0.3);
-  padding: 8px 20px;
-  border-radius: 100px;
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 2px;
-  color: var(--gold);
-}
-.hero-date-sep { color: rgba(201,168,76,0.3); font-size: 1.2rem; }
-
-.hero-cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  background: var(--gold);
-  color: var(--dark);
-  font-family: 'Montserrat', sans-serif;
-  font-size: 0.72rem;
-  font-weight: 900;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  padding: 18px 40px;
-  border: none;
-  cursor: none;
-  border-radius: 2px;
-  text-decoration: none;
-  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
-  opacity: 0;
-  animation: revealUp 0.9s 1s forwards ease;
-}
-.hero-cta:hover {
-  background: var(--gold-light);
-  transform: translateY(-2px);
-  box-shadow: 0 12px 40px rgba(201,168,76,0.3);
-}
-.hero-cta-arrow { font-size: 1rem; transition: transform 0.2s; }
-.hero-cta:hover .hero-cta-arrow { transform: translateX(4px); }
-
-.hero-scroll {
-  position: absolute;
-  bottom: 32px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  opacity: 0;
-  animation: revealUp 0.8s 1.4s forwards ease;
-}
-.scroll-line {
-  width: 1px;
-  height: 50px;
-  background: linear-gradient(to bottom, var(--gold), transparent);
-  animation: scrollPulse 2s ease-in-out infinite;
-}
-@keyframes scrollPulse { 0%,100%{opacity:0.4;transform:scaleY(1)} 50%{opacity:1;transform:scaleY(1.1)} }
-.scroll-text { font-size: 0.55rem; letter-spacing: 3px; color: var(--muted); text-transform: uppercase; }
-
-@keyframes revealUp {
-  from { opacity: 0; transform: translateY(24px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* ─── STAT BAR ─── */
-.stat-bar {
-  background: var(--dark2);
-  border-top: 1px solid rgba(201,168,76,0.12);
-  border-bottom: 1px solid rgba(201,168,76,0.12);
-  padding: 28px 24px;
-  display: flex;
-  justify-content: center;
-  gap: clamp(24px, 6vw, 80px);
-  flex-wrap: wrap;
-}
-.stat { text-align: center; }
-.stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 2.8rem; color: var(--gold); letter-spacing: 1px; line-height: 1; }
-.stat-label { font-size: 0.6rem; letter-spacing: 2.5px; color: var(--muted); text-transform: uppercase; margin-top: 4px; }
-
-/* ─── EVENTS SECTION ─── */
-.section { padding: 80px 24px; max-width: 1100px; margin: 0 auto; }
-.section-header { text-align: center; margin-bottom: 52px; }
-.section-tag { font-size: 0.6rem; letter-spacing: 5px; color: var(--gold); font-weight: 700; text-transform: uppercase; margin-bottom: 14px; display: block; }
-.section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.2rem, 5vw, 3.6rem); font-weight: 600; color: var(--cream); line-height: 1.1; }
-.section-title em { color: var(--gold); font-style: italic; }
-
-.events-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 16px;
-}
-
-.event-card {
-  border: 1px solid rgba(201,168,76,0.15);
-  border-radius: 4px;
-  overflow: hidden;
-  position: relative;
-  background: var(--dark2);
-  transition: border-color 0.3s, transform 0.3s;
-  cursor: none;
-}
-.event-card:hover {
-  border-color: rgba(201,168,76,0.5);
-  transform: translateY(-4px);
-}
-.event-card-top {
-  padding: 24px 24px 20px;
-  position: relative;
-}
-.event-card-accent {
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
-}
-.event-tier {
-  font-size: 0.55rem;
-  font-weight: 900;
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
-  padding: 4px 10px;
-  border-radius: 2px;
-  display: inline-block;
-  margin-bottom: 16px;
-}
-.tier-fire { background: rgba(192,57,43,0.2); color: #FF6B6B; }
-.tier-gold { background: rgba(201,168,76,0.15); color: var(--gold); }
-.event-flags { font-size: 2rem; margin-bottom: 10px; }
-.event-date { font-size: 0.65rem; font-weight: 600; letter-spacing: 2px; color: var(--muted); margin-bottom: 4px; }
-.event-time { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--gold); letter-spacing: 1px; line-height: 1; margin-bottom: 4px; }
-.event-match { font-size: 0.85rem; font-weight: 700; color: var(--cream); margin-bottom: 12px; }
-.event-name { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 700; color: var(--cream); line-height: 1.15; }
-.event-card-bottom {
-  border-top: 1px solid rgba(201,168,76,0.1);
-  padding: 14px 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-.event-perk { font-size: 0.65rem; color: var(--muted); letter-spacing: 0.3px; }
-.event-perk::before { content: '✦ '; color: var(--gold); }
-
-/* ─── FORM SECTION ─── */
-.form-section {
-  background: var(--dark2);
-  border-top: 1px solid rgba(201,168,76,0.12);
-  border-bottom: 1px solid rgba(201,168,76,0.12);
-  position: relative;
-  overflow: hidden;
-}
-.form-section::before {
-  content: '';
-  position: absolute;
-  width: 600px; height: 600px;
-  background: radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 60%);
-  top: -200px; right: -100px;
-  pointer-events: none;
-}
-.form-inner {
-  max-width: 620px;
-  margin: 0 auto;
-  padding: 80px 24px;
-  position: relative;
-  z-index: 2;
-}
-
-.form-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(201,168,76,0.1);
-  border: 1px solid rgba(201,168,76,0.3);
-  padding: 6px 16px;
-  border-radius: 100px;
-  font-size: 0.62rem;
-  font-weight: 700;
-  letter-spacing: 2px;
-  color: var(--gold);
-  text-transform: uppercase;
-  margin-bottom: 28px;
-}
-
-.form-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(2.4rem, 5vw, 3.8rem);
-  font-weight: 600;
-  color: var(--cream);
-  line-height: 1.05;
-  margin-bottom: 12px;
-}
-.form-title em { color: var(--gold); font-style: italic; }
-
-.form-desc {
-  font-size: 0.82rem;
-  color: var(--muted);
-  line-height: 1.7;
-  margin-bottom: 36px;
-}
-.form-desc strong { color: var(--gold); font-weight: 600; }
-
-/* Benefits list */
-.benefit-list { margin-bottom: 40px; display: flex; flex-direction: column; gap: 10px; }
-.benefit {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  font-size: 0.78rem;
-  color: var(--text);
-}
-.benefit-icon {
-  width: 32px; height: 32px;
-  background: var(--gold-dim);
-  border: 1px solid rgba(201,168,76,0.3);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.85rem;
-  flex-shrink: 0;
-}
-
-/* FORM */
-form { display: flex; flex-direction: column; gap: 14px; }
-
-.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-
-.form-group { display: flex; flex-direction: column; gap: 6px; }
-.form-label {
-  font-size: 0.6rem;
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-.form-input, .form-select {
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(201,168,76,0.2);
-  color: var(--cream);
-  padding: 14px 16px;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 0.82rem;
-  border-radius: 2px;
-  outline: none;
-  transition: border-color 0.2s, background 0.2s;
-  cursor: none;
-  width: 100%;
-}
-.form-input::placeholder { color: rgba(212,200,168,0.25); }
-.form-input:focus, .form-select:focus {
-  border-color: rgba(201,168,76,0.6);
-  background: rgba(201,168,76,0.04);
-}
-.form-select option { background: var(--dark2); color: var(--cream); }
-
-/* Interest checkboxes */
-.interest-label {
-  font-size: 0.6rem;
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 10px;
-}
-.interest-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-}
-.interest-check {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  cursor: none;
-}
-.interest-check input[type="checkbox"] {
-  appearance: none;
-  width: 16px; height: 16px;
-  border: 1px solid rgba(201,168,76,0.35);
-  background: transparent;
-  border-radius: 2px;
-  cursor: none;
-  position: relative;
-  flex-shrink: 0;
-  transition: all 0.15s;
-}
-.interest-check input[type="checkbox"]:checked {
-  background: var(--gold);
-  border-color: var(--gold);
-}
-.interest-check input[type="checkbox"]:checked::after {
-  content: '✓';
-  position: absolute;
-  color: var(--dark);
-  font-size: 0.65rem;
-  font-weight: 900;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-}
-.interest-check-label { font-size: 0.72rem; color: var(--text); cursor: none; }
-
-.submit-btn {
-  margin-top: 10px;
-  background: var(--gold);
-  color: var(--dark);
-  border: none;
-  padding: 18px 32px;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 0.78rem;
-  font-weight: 900;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  cursor: none;
-  border-radius: 2px;
-  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-}
-.submit-btn:hover {
-  background: var(--gold-light);
-  transform: translateY(-2px);
-  box-shadow: 0 14px 40px rgba(201,168,76,0.3);
-}
-.submit-btn:active { transform: translateY(0); }
-
-.form-fine { font-size: 0.6rem; color: rgba(212,200,168,0.3); text-align: center; margin-top: 12px; line-height: 1.6; }
-
-/* SUCCESS STATE */
-.success-state {
-  display: none;
-  text-align: center;
-  padding: 40px 0;
-  animation: revealUp 0.6s ease forwards;
-}
-.success-icon { font-size: 3.5rem; margin-bottom: 20px; }
-.success-title { font-family: 'Cormorant Garamond', serif; font-size: 2.4rem; color: var(--gold); margin-bottom: 12px; }
-.success-msg { font-size: 0.82rem; color: var(--muted); line-height: 1.7; }
-
-/* ─── FINAL EVENT BANNER ─── */
-.final-banner {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 0 24px 80px;
-}
-.final-card {
-  border: 1px solid var(--gold);
-  border-radius: 4px;
-  padding: 52px 40px;
-  position: relative;
-  overflow: hidden;
-  background: linear-gradient(135deg, var(--dark2), var(--dark3));
-  text-align: center;
-}
-.final-card::before {
-  content: '🏆';
-  position: absolute;
-  font-size: 18rem;
-  opacity: 0.04;
-  right: -60px; top: 50%;
-  transform: translateY(-50%);
-  line-height: 1;
-}
-.final-eyebrow { font-size: 0.6rem; letter-spacing: 5px; color: var(--gold); font-weight: 700; text-transform: uppercase; margin-bottom: 16px; }
-.final-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3rem, 8vw, 6rem); color: var(--cream); line-height: 0.9; margin-bottom: 16px; }
-.final-title span { color: var(--gold); }
-.final-date { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-style: italic; color: var(--muted); margin-bottom: 28px; }
-.final-perks { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 36px; }
-.final-perk { background: var(--gold-dim); border: 1px solid rgba(201,168,76,0.3); padding: 6px 16px; border-radius: 100px; font-size: 0.68rem; font-weight: 600; color: var(--gold); }
-.final-cta-group { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
-.btn-primary {
-  background: var(--gold);
-  color: var(--dark);
-  padding: 16px 36px;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 0.72rem;
-  font-weight: 900;
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
-  border: none;
-  border-radius: 2px;
-  cursor: none;
-  transition: all 0.2s;
-  text-decoration: none;
-}
-.btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
-.btn-outline {
-  background: transparent;
-  color: var(--gold);
-  padding: 16px 36px;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
-  border: 1px solid rgba(201,168,76,0.4);
-  border-radius: 2px;
-  cursor: none;
-  transition: all 0.2s;
-  text-decoration: none;
-}
-.btn-outline:hover { border-color: var(--gold); background: var(--gold-dim); }
-
-/* ─── FOOTER ─── */
-footer {
-  border-top: 1px solid rgba(201,168,76,0.12);
-  padding: 40px 24px;
-  text-align: center;
-}
-.footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--gold); letter-spacing: 3px; margin-bottom: 8px; }
-.footer-address { font-size: 0.68rem; color: var(--muted); letter-spacing: 1.5px; margin-bottom: 20px; }
-.footer-social { display: flex; gap: 16px; justify-content: center; margin-bottom: 20px; }
-.social-link {
-  width: 38px; height: 38px;
-  border: 1px solid rgba(201,168,76,0.25);
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 0.9rem;
-  text-decoration: none;
-  transition: all 0.2s;
-  cursor: none;
-}
-.social-link:hover { border-color: var(--gold); background: var(--gold-dim); transform: translateY(-2px); }
-.footer-fine { font-size: 0.58rem; color: rgba(212,200,168,0.2); letter-spacing: 1px; }
-
-/* ─── RESPONSIVE ─── */
-@media (max-width: 600px) {
-  .form-row { grid-template-columns: 1fr; }
-  .interest-grid { grid-template-columns: 1fr; }
-  .final-card { padding: 40px 24px; }
-  .stat-bar { gap: 24px; }
-  body { cursor: auto; }
-  .cursor, .cursor-ring { display: none; }
+@media(max-width:600px){
+  .form-row{grid-template-columns:1fr}
+  .interest-grid{grid-template-columns:1fr}
+  .final-card{padding:40px 20px}
+  body{cursor:auto}
+  .cursor,.cursor-ring{display:none}
+  .lang-toggle{top:10px;right:10px}
 }
 </style>
 </head>
@@ -622,431 +169,455 @@ footer {
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
 
-<!-- ─── HERO ─── -->
+<!-- LANGUAGE TOGGLE -->
+<div class="lang-toggle" role="group" aria-label="Seleccionar idioma / Select language">
+  <button class="lang-btn active" id="btnES" onclick="setLang('es')">ES</button>
+  <button class="lang-btn" id="btnEN" onclick="setLang('en')">EN</button>
+</div>
+
+<!-- ═══════ HERO ═══════ -->
 <section class="hero">
   <div class="hero-line"></div>
-  <span class="ball">⚽</span>
-  <span class="ball">⚽</span>
-  <span class="ball">⚽</span>
-  <span class="ball">⚽</span>
-
+  <span class="ball">⚽</span><span class="ball">⚽</span><span class="ball">⚽</span><span class="ball">⚽</span>
   <div class="hero-inner">
     <div class="hero-eyebrow">Mango's Greenville · 110 Poinsett Hwy</div>
     <h1 class="hero-title">
-      <span class="gold">World</span><br>
-      <span class="outlined">Cup</span><br>
+      <span class="gold" data-es="Copa" data-en="World">Copa</span><br>
+      <span class="outlined" data-es="Mundial" data-en="Cup">Mundial</span><br>
       <span>2026</span>
     </h1>
-    <p class="hero-sub">40 noches. 40 nights. One place to be.</p>
+    <p class="hero-sub" data-es="40 noches. Un solo lugar. Mango's Greenville." data-en="40 nights. One place to be. Mango's Greenville.">
+      40 noches. Un solo lugar. Mango's Greenville.
+    </p>
     <div class="hero-dates">
-      <div class="hero-date-pill">June 11, 2026</div>
+      <div class="hero-date-pill" data-es="11 de Junio, 2026" data-en="June 11, 2026">11 de Junio, 2026</div>
       <div class="hero-date-sep">→</div>
-      <div class="hero-date-pill">July 19, 2026</div>
+      <div class="hero-date-pill" data-es="19 de Julio, 2026" data-en="July 19, 2026">19 de Julio, 2026</div>
     </div>
     <a href="#signup" class="hero-cta">
-      Claim Your VIP Access
+      <span>🥭</span>
+      <span data-es="Reserva Tu Acceso VIP" data-en="Claim Your VIP Access">Reserva Tu Acceso VIP</span>
       <span class="hero-cta-arrow">→</span>
     </a>
   </div>
-
   <div class="hero-scroll">
     <div class="scroll-line"></div>
-    <div class="scroll-text">Scroll</div>
+    <div class="scroll-text" data-es="Desliza" data-en="Scroll">Desliza</div>
   </div>
 </section>
 
-<!-- ─── STAT BAR ─── -->
+<!-- ═══════ STAT BAR ═══════ -->
 <div class="stat-bar">
-  <div class="stat">
-    <div class="stat-num">40</div>
-    <div class="stat-label">Days of Futbol</div>
-  </div>
-  <div class="stat">
-    <div class="stat-num">20+</div>
-    <div class="stat-label">Watch Parties</div>
-  </div>
-  <div class="stat">
-    <div class="stat-num">48</div>
-    <div class="stat-label">Nations</div>
-  </div>
-  <div class="stat">
-    <div class="stat-num">104</div>
-    <div class="stat-label">Matches</div>
-  </div>
-  <div class="stat">
-    <div class="stat-num">1</div>
-    <div class="stat-label">Place to Be</div>
-  </div>
+  <div class="stat"><div class="stat-num">40</div><div class="stat-label" data-es="Noches de Fútbol" data-en="Nights of Football">Noches de Fútbol</div></div>
+  <div class="stat"><div class="stat-num">20+</div><div class="stat-label" data-es="Fiestas de Partido" data-en="Watch Parties">Fiestas de Partido</div></div>
+  <div class="stat"><div class="stat-num">48</div><div class="stat-label" data-es="Naciones" data-en="Nations">Naciones</div></div>
+  <div class="stat"><div class="stat-num">104</div><div class="stat-label" data-es="Partidos" data-en="Matches">Partidos</div></div>
+  <div class="stat"><div class="stat-num">1</div><div class="stat-label" data-es="Lugar Para Estar" data-en="Place to Be">Lugar Para Estar</div></div>
 </div>
 
-<!-- ─── SIGNATURE EVENTS ─── -->
+<!-- ═══════ EVENTS ═══════ -->
 <section class="section">
   <div class="section-header">
-    <span class="section-tag">Signature Events</span>
-    <h2 class="section-title">Noches que <em>no olvidarás</em><br>Nights you won't forget</h2>
+    <span class="section-tag" data-es="Eventos Exclusivos" data-en="Signature Events">Eventos Exclusivos</span>
+    <h2 class="section-title">
+      <span data-es="Noches que " data-en="Nights you ">Noches que </span><em data-es="no olvidarás" data-en="won't forget">no olvidarás</em>
+    </h2>
   </div>
-
   <div class="events-grid">
 
-    <div class="event-card">
-      <div class="event-card-accent" style="background: linear-gradient(90deg,#006847,#CE1126,#FFFFFF20)"></div>
+    <div class="event-card" style="position:relative">
+      <div class="event-card-accent" style="background:linear-gradient(90deg,#006847,#CE1126,rgba(255,255,255,.1))"></div>
       <div class="event-card-top">
-        <span class="event-tier tier-fire">🔴 Tier 1 · Opener</span>
+        <span class="event-tier tier-fire" data-es="🔴 Tier 1 · El Inicio" data-en="🔴 Tier 1 · Opener">🔴 Tier 1 · El Inicio</span>
         <div class="event-flags">🇲🇽🇿🇦</div>
-        <div class="event-date">THURSDAY · JUNE 11, 2026</div>
+        <div class="event-date" data-es="JUEVES · 11 DE JUNIO, 2026" data-en="THURSDAY · JUNE 11, 2026">JUEVES · 11 DE JUNIO, 2026</div>
         <div class="event-time">3:00 PM</div>
-        <div class="event-match">Mexico vs South Africa</div>
+        <div class="event-match" data-es="México vs Sudáfrica" data-en="Mexico vs South Africa">México vs Sudáfrica</div>
         <div class="event-name">El Grito del Gol</div>
       </div>
       <div class="event-card-bottom">
-        <div class="event-perk">Free entry before 5PM</div>
-        <div class="event-perk">$3 margaritas during the match</div>
-        <div class="event-perk">DJ · Nightclub mode 6PM+</div>
+        <div class="event-perk" data-es="Entrada gratis antes de las 5PM" data-en="Free entry before 5PM">Entrada gratis antes de las 5PM</div>
+        <div class="event-perk" data-es="Margaritas a $3 durante el partido" data-en="$3 margaritas during the match">Margaritas a $3 durante el partido</div>
+        <div class="event-perk" data-es="DJ · Modo discoteca desde las 6PM" data-en="DJ · Nightclub mode 6PM+">DJ · Modo discoteca desde las 6PM</div>
       </div>
     </div>
 
-    <div class="event-card">
-      <div class="event-card-accent" style="background: linear-gradient(90deg,#005BAA,#75AADB,#FFFFFF10)"></div>
+    <div class="event-card" style="position:relative">
+      <div class="event-card-accent" style="background:linear-gradient(90deg,#005BAA,#75AADB,rgba(255,255,255,.05))"></div>
       <div class="event-card-top">
-        <span class="event-tier tier-fire">🔴 Tier 1 · Defending Champs</span>
+        <span class="event-tier tier-fire" data-es="🔴 Tier 1 · Campeones" data-en="🔴 Tier 1 · Defending Champs">🔴 Tier 1 · Campeones</span>
         <div class="event-flags">🇦🇷🇩🇿</div>
-        <div class="event-date">TUESDAY · JUNE 16, 2026</div>
+        <div class="event-date" data-es="MARTES · 16 DE JUNIO, 2026" data-en="TUESDAY · JUNE 16, 2026">MARTES · 16 DE JUNIO, 2026</div>
         <div class="event-time">9:00 PM</div>
-        <div class="event-match">Argentina vs Algeria</div>
+        <div class="event-match" data-es="Argentina vs Algeria" data-en="Argentina vs Algeria">Argentina vs Algeria</div>
         <div class="event-name">La Noche Argentina</div>
       </div>
       <div class="event-card-bottom">
-        <div class="event-perk">$6 Argentina Mule · $5 Fernet shots</div>
-        <div class="event-perk">VIP tables from $150 minimum</div>
-        <div class="event-perk">Jersey contest — win a bottle</div>
+        <div class="event-perk" data-es="Argentina Mule $6 · Shots de Fernet $5" data-en="$6 Argentina Mule · $5 Fernet shots">Argentina Mule $6 · Shots de Fernet $5</div>
+        <div class="event-perk" data-es="Mesas VIP desde $150 mínimo" data-en="VIP tables from $150 minimum">Mesas VIP desde $150 mínimo</div>
+        <div class="event-perk" data-es="Concurso de jersey — gana una botella" data-en="Jersey contest — win a bottle">Concurso de jersey — gana una botella</div>
       </div>
     </div>
 
-    <div class="event-card">
-      <div class="event-card-accent" style="background: linear-gradient(90deg,#FCD116,#003087,#CE1126)"></div>
+    <div class="event-card" style="position:relative">
+      <div class="event-card-accent" style="background:linear-gradient(90deg,#FCD116,#003087,#CE1126)"></div>
       <div class="event-card-top">
-        <span class="event-tier tier-fire">🔴 Tier 1 · Two Nights</span>
+        <span class="event-tier tier-fire" data-es="🔴 Tier 1 · Dos Noches" data-en="🔴 Tier 1 · Two Nights">🔴 Tier 1 · Dos Noches</span>
         <div class="event-flags">🇨🇴🇺🇿 · 🇨🇴🇨🇩</div>
-        <div class="event-date">JUNE 17 + JUNE 23</div>
+        <div class="event-date" data-es="17 DE JUNIO + 23 DE JUNIO" data-en="JUNE 17 + JUNE 23">17 DE JUNIO + 23 DE JUNIO</div>
         <div class="event-time">10:00 PM</div>
-        <div class="event-match">Colombia Watch Nights</div>
+        <div class="event-match" data-es="Noches de Colombia" data-en="Colombia Watch Nights">Noches de Colombia</div>
         <div class="event-name">Noche Colombiana</div>
       </div>
       <div class="event-card-bottom">
-        <div class="event-perk">Aguardiente shots + Tricolor cocktail</div>
-        <div class="event-perk">Cumbia DJ set · Dress code enforced</div>
-        <div class="event-perk">Bottle service · DM to reserve</div>
+        <div class="event-perk" data-es="Shots de Aguardiente + Cóctel Tricolor" data-en="Aguardiente shots + Tricolor cocktail">Shots de Aguardiente + Cóctel Tricolor</div>
+        <div class="event-perk" data-es="DJ de Cumbia · Código de vestimenta" data-en="Cumbia DJ set · Dress code enforced">DJ de Cumbia · Código de vestimenta</div>
+        <div class="event-perk" data-es="Servicio de botella · Reserva por DM" data-en="Bottle service · DM to reserve">Servicio de botella · Reserva por DM</div>
       </div>
     </div>
 
-    <div class="event-card" style="border-color:rgba(192,57,43,0.4)">
-      <div class="event-card-accent" style="background: linear-gradient(90deg,#C0392B,#E74C3C,#FF000010)"></div>
+    <div class="event-card" style="position:relative;border-color:rgba(192,57,43,.4)">
+      <div class="event-card-accent" style="background:linear-gradient(90deg,#C0392B,#E74C3C,rgba(255,0,0,.05))"></div>
       <div class="event-card-top">
-        <span class="event-tier tier-fire">🚨 Must-Win · Group Decider</span>
+        <span class="event-tier tier-fire" data-es="🚨 Decisivo · Ganar o Irse" data-en="🚨 Must-Win · Group Decider">🚨 Decisivo · Ganar o Irse</span>
         <div class="event-flags">🇨🇿🇲🇽⚠️</div>
-        <div class="event-date">WEDNESDAY · JUNE 24, 2026</div>
+        <div class="event-date" data-es="MIÉRCOLES · 24 DE JUNIO, 2026" data-en="WEDNESDAY · JUNE 24, 2026">MIÉRCOLES · 24 DE JUNIO, 2026</div>
         <div class="event-time">9:00 PM</div>
-        <div class="event-match">Czechia vs Mexico</div>
+        <div class="event-match" data-es="Chequia vs México" data-en="Czechia vs Mexico">Chequia vs México</div>
         <div class="event-name">Todo o Nada</div>
       </div>
       <div class="event-card-bottom">
-        <div class="event-perk">Reservations required — limited capacity</div>
-        <div class="event-perk">Exclusive Mexico cocktail menu</div>
-        <div class="event-perk">DJ regardless of result</div>
+        <div class="event-perk" data-es="Reservación obligatoria — cupo limitado" data-en="Reservations required — limited capacity">Reservación obligatoria — cupo limitado</div>
+        <div class="event-perk" data-es="Menú exclusivo de cócteles mexicanos" data-en="Exclusive Mexico cocktail menu">Menú exclusivo de cócteles mexicanos</div>
+        <div class="event-perk" data-es="DJ sin importar el resultado" data-en="DJ regardless of result">DJ sin importar el resultado</div>
       </div>
     </div>
 
-    <div class="event-card" style="border-color:rgba(201,168,76,0.4)">
-      <div class="event-card-accent" style="background: linear-gradient(90deg,#C9A84C,#F0D080,#C9A84C)"></div>
+    <div class="event-card" style="position:relative;border-color:rgba(201,168,76,.4)">
+      <div class="event-card-accent" style="background:linear-gradient(90deg,#C9A84C,#F0D080,#C9A84C)"></div>
       <div class="event-card-top">
-        <span class="event-tier tier-gold">🔥 Triple Header · Biggest Group Night</span>
+        <span class="event-tier tier-gold" data-es="🔥 Triple Cartelera · La Noche Más Grande" data-en="🔥 Triple Header · Biggest Night">🔥 Triple Cartelera · La Noche Más Grande</span>
         <div class="event-flags">🇵🇦🇨🇴🇦🇷</div>
-        <div class="event-date">SATURDAY · JUNE 27, 2026</div>
+        <div class="event-date" data-es="SÁBADO · 27 DE JUNIO, 2026" data-en="SATURDAY · JUNE 27, 2026">SÁBADO · 27 DE JUNIO, 2026</div>
         <div class="event-time">5PM–2AM</div>
-        <div class="event-match">Panama · Colombia · Argentina</div>
-        <div class="event-name">Blockbuster Saturday</div>
+        <div class="event-match" data-es="Panamá · Colombia · Argentina" data-en="Panama · Colombia · Argentina">Panamá · Colombia · Argentina</div>
+        <div class="event-name" data-es="Sábado Épico" data-en="Blockbuster Saturday">Sábado Épico</div>
       </div>
       <div class="event-card-bottom">
-        <div class="event-perk">7:30PM Colombia vs Portugal — VIP main event</div>
-        <div class="event-perk">Three rotating Latin cocktail specials</div>
-        <div class="event-perk">DJ from 10PM · Full nightclub mode</div>
+        <div class="event-perk" data-es="7:30PM Colombia vs Portugal — Evento VIP Principal" data-en="7:30PM Colombia vs Portugal — VIP main event">7:30PM Colombia vs Portugal — Evento VIP Principal</div>
+        <div class="event-perk" data-es="Tres cócteles latinos rotativos" data-en="Three rotating Latin cocktail specials">Tres cócteles latinos rotativos</div>
+        <div class="event-perk" data-es="DJ desde las 10PM · Modo discoteca completo" data-en="DJ from 10PM · Full nightclub mode">DJ desde las 10PM · Modo discoteca completo</div>
       </div>
     </div>
 
-    <div class="event-card" style="border-color:rgba(201,168,76,0.7); background: linear-gradient(135deg,#0a0700,#1a1100)">
-      <div class="event-card-accent" style="background: linear-gradient(90deg,#C9A84C,#E8C96A,#C9A84C)"></div>
+    <div class="event-card" style="position:relative;border-color:rgba(201,168,76,.7);background:linear-gradient(135deg,#0a0700,#1a1100)">
+      <div class="event-card-accent" style="background:linear-gradient(90deg,#C9A84C,#E8C96A,#C9A84C)"></div>
       <div class="event-card-top">
-        <span class="event-tier tier-gold">🏆 Ticketed Event · Limited Spots</span>
+        <span class="event-tier tier-gold" data-es="🏆 Evento con Boleto · Cupo Limitado" data-en="🏆 Ticketed Event · Limited Spots">🏆 Evento con Boleto · Cupo Limitado</span>
         <div class="event-flags">🏆⚽🌍</div>
-        <div class="event-date">SUNDAY · JULY 19, 2026</div>
+        <div class="event-date" data-es="DOMINGO · 19 DE JULIO, 2026" data-en="SUNDAY · JULY 19, 2026">DOMINGO · 19 DE JULIO, 2026</div>
         <div class="event-time">3:00 PM</div>
-        <div class="event-match">FIFA World Cup Final</div>
-        <div class="event-name">The Mango's<br>World Cup Final</div>
+        <div class="event-match" data-es="Final de la Copa Mundial FIFA" data-en="FIFA World Cup Final">Final de la Copa Mundial FIFA</div>
+        <div class="event-name" data-es="La Gran Final de Mango's" data-en="The Mango's World Cup Final">La Gran Final de Mango's</div>
       </div>
       <div class="event-card-bottom">
-        <div class="event-perk">Advance tickets required · $25–$40</div>
-        <div class="event-perk">VIP tables $300–$500 · DJ 2PM–4AM</div>
-        <div class="event-perk">Confetti · Trophy prop · Premium menu</div>
+        <div class="event-perk" data-es="Boleto anticipado obligatorio · $25–$40" data-en="Advance tickets required · $25–$40">Boleto anticipado obligatorio · $25–$40</div>
+        <div class="event-perk" data-es="Mesas VIP $300–$500 · DJ 2PM–4AM" data-en="VIP tables $300–$500 · DJ 2PM–4AM">Mesas VIP $300–$500 · DJ 2PM–4AM</div>
+        <div class="event-perk" data-es="Confetti · Foto con trofeo · Menú premium" data-en="Confetti · Trophy prop · Premium menu">Confetti · Foto con trofeo · Menú premium</div>
       </div>
     </div>
 
   </div>
 </section>
 
-<!-- ─── SIGNUP FORM ─── -->
+<!-- ═══════ SIGNUP FORM ═══════ -->
 <section class="form-section" id="signup">
   <div class="form-inner">
 
-    <div class="form-badge">⚽ VIP Registration Open</div>
+    <div class="form-badge">⚽ <span data-es="Registro VIP Abierto" data-en="VIP Registration Open">Registro VIP Abierto</span></div>
 
-    <h2 class="form-title">Secure your<br><em>access.</em></h2>
+    <h2 class="form-title">
+      <span data-es="Asegura tu" data-en="Secure your">Asegura tu</span><br>
+      <em data-es="lugar." data-en="access.">lugar.</em>
+    </h2>
 
     <p class="form-desc">
-      Sign up for <strong>early access to VIP table reservations</strong>, exclusive drink specials, and event alerts — before we open to the public. WhatsApp VIP members get first pick.
+      <span data-es="Regístrate para obtener " data-en="Sign up for ">Regístrate para obtener </span><strong data-es="acceso anticipado a las mesas VIP" data-en="early access to VIP table reservations">acceso anticipado a las mesas VIP</strong><span data-es=", ofertas exclusivas y alertas de eventos antes del público general. Los miembros VIP de WhatsApp tienen prioridad." data-en=", exclusive drink specials, and event alerts before the general public. WhatsApp VIP members get first pick.">, ofertas exclusivas y alertas de eventos antes del público general. Los miembros VIP de WhatsApp tienen prioridad.</span>
     </p>
 
     <div class="benefit-list">
-      <div class="benefit">
-        <div class="benefit-icon">🥂</div>
-        <span>First access to VIP table reservations before public release</span>
-      </div>
-      <div class="benefit">
-        <div class="benefit-icon">📲</div>
-        <span>Exclusive WhatsApp alerts with specials only for members</span>
-      </div>
-      <div class="benefit">
-        <div class="benefit-icon">🎟️</div>
-        <span>Early access to World Cup Final tickets before general sale</span>
-      </div>
-      <div class="benefit">
-        <div class="benefit-icon">🍹</div>
-        <span>Free welcome drink at your first World Cup event</span>
-      </div>
+      <div class="benefit"><div class="benefit-icon">🥂</div><span data-es="Acceso prioritario a mesas VIP antes del público general" data-en="First access to VIP table reservations before public release">Acceso prioritario a mesas VIP antes del público general</span></div>
+      <div class="benefit"><div class="benefit-icon">📲</div><span data-es="Alertas exclusivas de WhatsApp con ofertas solo para miembros" data-en="Exclusive WhatsApp alerts with specials only for members">Alertas exclusivas de WhatsApp con ofertas solo para miembros</span></div>
+      <div class="benefit"><div class="benefit-icon">🎟️</div><span data-es="Acceso anticipado a boletos para la Final antes de la venta general" data-en="Early access to World Cup Final tickets before general sale">Acceso anticipado a boletos para la Final antes de la venta general</span></div>
+      <div class="benefit"><div class="benefit-icon">🍹</div><span data-es="Una bebida gratis de bienvenida en tu primer evento" data-en="Free welcome drink at your first World Cup event">Una bebida gratis de bienvenida en tu primer evento</span></div>
     </div>
 
-    <!-- FORM -->
     <form id="signupForm" onsubmit="handleSubmit(event)">
       <div class="form-row">
         <div class="form-group">
-          <label class="form-label">First Name</label>
-          <input class="form-input" type="text" placeholder="Carlos" required>
+          <label class="form-label" data-es="Nombre" data-en="First Name">Nombre</label>
+          <input class="form-input" type="text" data-ph-es="Carlos" data-ph-en="Carlos" placeholder="Carlos" required>
         </div>
         <div class="form-group">
-          <label class="form-label">Last Name</label>
-          <input class="form-input" type="text" placeholder="Rodríguez" required>
+          <label class="form-label" data-es="Apellido" data-en="Last Name">Apellido</label>
+          <input class="form-input" type="text" data-ph-es="Rodríguez" data-ph-en="Rodriguez" placeholder="Rodríguez" required>
         </div>
       </div>
-
       <div class="form-group">
-        <label class="form-label">Email Address</label>
-        <input class="form-input" type="email" placeholder="you@email.com" required>
+        <label class="form-label" data-es="Correo Electrónico" data-en="Email Address">Correo Electrónico</label>
+        <input class="form-input" type="email" data-ph-es="tucorreo@email.com" data-ph-en="you@email.com" placeholder="tucorreo@email.com" required>
       </div>
-
       <div class="form-group">
-        <label class="form-label">Phone (for WhatsApp VIP List)</label>
-        <input class="form-input" type="tel" placeholder="(864) 555-0100">
+        <label class="form-label" data-es="Teléfono (para lista VIP de WhatsApp)" data-en="Phone (for WhatsApp VIP List)">Teléfono (para lista VIP de WhatsApp)</label>
+        <input class="form-input" type="tel" data-ph-es="(864) 555-0100" data-ph-en="(864) 555-0100" placeholder="(864) 555-0100">
       </div>
-
       <div class="form-group">
-        <label class="form-label">Party Size</label>
+        <label class="form-label" data-es="Tamaño del Grupo" data-en="Party Size">Tamaño del Grupo</label>
         <select class="form-select">
-          <option value="" disabled selected>How many guests?</option>
-          <option>Just me (1)</option>
-          <option>2–3 guests</option>
-          <option>4–6 guests</option>
-          <option>7–10 guests (group table)</option>
-          <option>10+ guests (private event inquiry)</option>
+          <option value="" disabled selected data-es="¿Cuántos invitados?" data-en="How many guests?">¿Cuántos invitados?</option>
+          <option data-es="Solo yo (1)" data-en="Just me (1)">Solo yo (1)</option>
+          <option data-es="2–3 invitados" data-en="2–3 guests">2–3 invitados</option>
+          <option data-es="4–6 invitados" data-en="4–6 guests">4–6 invitados</option>
+          <option data-es="7–10 invitados (mesa grupal)" data-en="7–10 guests (group table)">7–10 invitados (mesa grupal)</option>
+          <option data-es="10+ invitados (consulta evento privado)" data-en="10+ guests (private event inquiry)">10+ invitados (consulta evento privado)</option>
         </select>
       </div>
-
       <div class="form-group">
-        <label class="form-label">I'm most interested in...</label>
+        <div class="interest-label" data-es="Me interesa más..." data-en="I'm most interested in...">Me interesa más...</div>
         <div class="interest-grid">
-          <label class="interest-check">
-            <input type="checkbox" checked>
-            <span class="interest-check-label">🇲🇽 Mexico Nights</span>
-          </label>
-          <label class="interest-check">
-            <input type="checkbox">
-            <span class="interest-check-label">🇦🇷 Argentina Night</span>
-          </label>
-          <label class="interest-check">
-            <input type="checkbox">
-            <span class="interest-check-label">🇨🇴 Colombia Nights</span>
-          </label>
-          <label class="interest-check">
-            <input type="checkbox">
-            <span class="interest-check-label">🇺🇸 USA Matches</span>
-          </label>
-          <label class="interest-check">
-            <input type="checkbox">
-            <span class="interest-check-label">🔥 Blockbuster Sat</span>
-          </label>
-          <label class="interest-check">
-            <input type="checkbox">
-            <span class="interest-check-label">🏆 World Cup Final</span>
-          </label>
+          <label class="interest-check"><input type="checkbox" checked><span class="interest-check-label" data-es="🇲🇽 Noches de México" data-en="🇲🇽 Mexico Nights">🇲🇽 Noches de México</span></label>
+          <label class="interest-check"><input type="checkbox"><span class="interest-check-label" data-es="🇦🇷 Noche Argentina" data-en="🇦🇷 Argentina Night">🇦🇷 Noche Argentina</span></label>
+          <label class="interest-check"><input type="checkbox"><span class="interest-check-label" data-es="🇨🇴 Noches Colombianas" data-en="🇨🇴 Colombia Nights">🇨🇴 Noches Colombianas</span></label>
+          <label class="interest-check"><input type="checkbox"><span class="interest-check-label" data-es="🇺🇸 Partidos de EUA" data-en="🇺🇸 USA Matches">🇺🇸 Partidos de EUA</span></label>
+          <label class="interest-check"><input type="checkbox"><span class="interest-check-label" data-es="🔥 Sábado Épico" data-en="🔥 Blockbuster Sat">🔥 Sábado Épico</span></label>
+          <label class="interest-check"><input type="checkbox"><span class="interest-check-label" data-es="🏆 La Gran Final" data-en="🏆 World Cup Final">🏆 La Gran Final</span></label>
         </div>
       </div>
-
       <div class="form-group">
-        <label class="form-label">VIP Package Interest</label>
+        <label class="form-label" data-es="Interés en Paquete VIP" data-en="VIP Package Interest">Interés en Paquete VIP</label>
         <select class="form-select">
-          <option value="" disabled selected>Are you interested in VIP tables?</option>
-          <option>Yes — La Copa ($150 min, table for 4)</option>
-          <option>Yes — El Campeón ($300 min, table for 6)</option>
-          <option>Yes — La Final ($500 min, table for 8 + Final only)</option>
-          <option>General admission only</option>
-          <option>Not sure yet</option>
+          <option value="" disabled selected data-es="¿Te interesan las mesas VIP?" data-en="Are you interested in VIP tables?">¿Te interesan las mesas VIP?</option>
+          <option data-es="Sí — La Copa ($150 mín, mesa para 4)" data-en="Yes — La Copa ($150 min, table for 4)">Sí — La Copa ($150 mín, mesa para 4)</option>
+          <option data-es="Sí — El Campeón ($300 mín, mesa para 6)" data-en="Yes — El Campeón ($300 min, table for 6)">Sí — El Campeón ($300 mín, mesa para 6)</option>
+          <option data-es="Sí — La Final ($500 mín, mesa para 8)" data-en="Yes — La Final ($500 min, table for 8)">Sí — La Final ($500 mín, mesa para 8)</option>
+          <option data-es="Solo entrada general" data-en="General admission only">Solo entrada general</option>
+          <option data-es="Aún no lo sé" data-en="Not sure yet">Aún no lo sé</option>
         </select>
       </div>
-
-      <button type="submit" class="submit-btn">
+      <button type="submit" class="submit-btn" id="submitBtn">
         <span>🥭</span>
-        Claim My VIP Access
+        <span id="submitText" data-es="Reserva Mi Acceso VIP" data-en="Claim My VIP Access">Reserva Mi Acceso VIP</span>
         <span>→</span>
       </button>
-
-      <p class="form-fine">By signing up you agree to receive event updates and promotions from Mango's Greenville. We never share your info. Unsubscribe anytime.</p>
+      <p class="form-fine" data-es="Al registrarte aceptas recibir actualizaciones de Mango's Greenville. Nunca compartimos tu información. Puedes darte de baja cuando quieras." data-en="By signing up you agree to receive event updates from Mango's Greenville. We never share your info. Unsubscribe anytime.">Al registrarte aceptas recibir actualizaciones de Mango's Greenville. Nunca compartimos tu información. Puedes darte de baja cuando quieras.</p>
     </form>
 
-    <!-- SUCCESS STATE -->
     <div class="success-state" id="successState">
       <div class="success-icon">🏆</div>
-      <div class="success-title">¡Bienvenido!<br>You're in.</div>
-      <p class="success-msg">
-        You're on the Mango's World Cup VIP list. Watch for a WhatsApp message from us with your exclusive early access link.<br><br>
-        <strong style="color:var(--gold)">Your free welcome drink is waiting.</strong><br>
-        Show this confirmation at the door on your first visit.<br><br>
-        See you on June 11. ⚽🥭
-      </p>
+      <div class="success-title" data-es="¡Bienvenido! Ya estás adentro." data-en="¡Bienvenido! You're in.">¡Bienvenido! Ya estás adentro.</div>
+      <p class="success-msg" data-es="Estás en la lista VIP de Mango's para la Copa Mundial. 📲 Espera nuestro mensaje de WhatsApp con tu enlace de acceso exclusivo.
+
+Tu bebida de bienvenida gratis te espera. Muestra esta pantalla en la entrada en tu primera visita.
+
+¡Nos vemos el 11 de junio! ⚽🥭" data-en="You're on the Mango's World Cup VIP list. 📲 Watch for our WhatsApp message with your exclusive early access link.
+
+Your free welcome drink is waiting. Show this screen at the door on your first visit.
+
+See you June 11! ⚽🥭">Estás en la lista VIP de Mango's para la Copa Mundial. 📲 Espera nuestro mensaje de WhatsApp con tu enlace de acceso exclusivo.
+
+Tu bebida de bienvenida gratis te espera. Muestra esta pantalla en la entrada en tu primera visita.
+
+¡Nos vemos el 11 de junio! ⚽🥭</p>
     </div>
 
   </div>
 </section>
 
-<!-- ─── WORLD CUP FINAL BANNER ─── -->
+<!-- ═══════ FINAL BANNER ═══════ -->
 <div class="final-banner">
   <div class="final-card">
-    <div class="final-eyebrow">The Main Event · July 19, 2026</div>
-    <div class="final-title">The <span>Mango's</span><br>World Cup Final</div>
-    <div class="final-date">Sunday, July 19 · 3:00 PM ET · MetLife Stadium, NJ</div>
+    <div class="final-eyebrow" data-es="El Evento Principal · 19 de Julio, 2026" data-en="The Main Event · July 19, 2026">El Evento Principal · 19 de Julio, 2026</div>
+    <div class="final-title"><span data-es="La Gran Final" data-en="The World Cup">La Gran Final</span><br><span>Mango's</span></div>
+    <div class="final-date" data-es="Domingo, 19 de Julio · 3:00 PM ET · MetLife Stadium, NJ" data-en="Sunday, July 19 · 3:00 PM ET · MetLife Stadium, NJ">Domingo, 19 de Julio · 3:00 PM ET · MetLife Stadium, NJ</div>
     <div class="final-perks">
-      <span class="final-perk">🎟️ Ticketed Event</span>
-      <span class="final-perk">🍾 VIP Tables $300–$500</span>
+      <span class="final-perk" data-es="🎟️ Evento con Boleto" data-en="🎟️ Ticketed Event">🎟️ Evento con Boleto</span>
+      <span class="final-perk" data-es="🍾 Mesas VIP $300–$500" data-en="🍾 VIP Tables $300–$500">🍾 Mesas VIP $300–$500</span>
       <span class="final-perk">🎵 DJ 2PM–4AM</span>
-      <span class="final-perk">🎊 Confetti Drop</span>
-      <span class="final-perk">📸 Trophy Photo Wall</span>
-      <span class="final-perk">🥂 Premium Cocktail Menu</span>
+      <span class="final-perk" data-es="🎊 Lluvia de Confetti" data-en="🎊 Confetti Drop">🎊 Lluvia de Confetti</span>
+      <span class="final-perk" data-es="📸 Foto con el Trofeo" data-en="📸 Trophy Photo Wall">📸 Foto con el Trofeo</span>
+      <span class="final-perk" data-es="🥂 Menú de Cócteles Premium" data-en="🥂 Premium Cocktail Menu">🥂 Menú de Cócteles Premium</span>
     </div>
     <div class="final-cta-group">
-      <a href="#signup" class="btn-primary">Reserve My Spot</a>
-      <a href="#signup" class="btn-outline">VIP Table Inquiry</a>
+      <a href="#signup" class="btn-primary" data-es="Reserva Tu Lugar" data-en="Reserve My Spot">Reserva Tu Lugar</a>
+      <a href="#signup" class="btn-outline" data-es="Consulta Mesa VIP" data-en="VIP Table Inquiry">Consulta Mesa VIP</a>
     </div>
   </div>
 </div>
 
-<!-- ─── FOOTER ─── -->
+<!-- ═══════ FOOTER ═══════ -->
 <footer>
   <div class="footer-logo">MANGO'S</div>
-  <div class="footer-address">110 Poinsett Hwy · Greenville, SC · Latin Gastro-Bar & Nightclub</div>
+  <div class="footer-address" data-es="110 Poinsett Hwy · Greenville, SC · Latin Gastro-Bar y Discoteca" data-en="110 Poinsett Hwy · Greenville, SC · Latin Gastro-Bar & Nightclub">110 Poinsett Hwy · Greenville, SC · Latin Gastro-Bar y Discoteca</div>
   <div class="footer-social">
     <a class="social-link" href="#" title="Instagram">📸</a>
     <a class="social-link" href="#" title="Facebook">📘</a>
     <a class="social-link" href="#" title="TikTok">🎵</a>
     <a class="social-link" href="#" title="WhatsApp">💬</a>
   </div>
-  <div class="footer-fine">© 2026 MANGO'S GREENVILLE · ALL RIGHTS RESERVED · FIFA WORLD CUP 2026™</div>
+  <div class="footer-fine">© 2026 MANGO'S GREENVILLE · <span data-es="TODOS LOS DERECHOS RESERVADOS" data-en="ALL RIGHTS RESERVED">TODOS LOS DERECHOS RESERVADOS</span> · FIFA WORLD CUP 2026™</div>
 </footer>
 
 <script>
-  // Custom cursor
-  const cursor = document.getElementById('cursor');
-  const ring = document.getElementById('cursorRing');
-  let mx = 0, my = 0, rx = 0, ry = 0;
+/* ══ LANGUAGE ENGINE ══ */
+let lang = 'es';
 
-  document.addEventListener('mousemove', e => {
-    mx = e.clientX; my = e.clientY;
-    cursor.style.left = mx + 'px';
-    cursor.style.top = my + 'px';
+function setLang(l) {
+  lang = l;
+  document.documentElement.lang = l;
+  document.getElementById('btnES').classList.toggle('active', l === 'es');
+  document.getElementById('btnEN').classList.toggle('active', l === 'en');
+
+  // Text nodes
+  document.querySelectorAll('[data-es]').forEach(el => {
+    const val = el.getAttribute('data-' + l);
+    if (val === null) return;
+    // Preserve whitespace in success message
+    if (el.tagName === 'P' && el.classList.contains('success-msg')) {
+      el.style.whiteSpace = 'pre-line';
+      el.textContent = val;
+    } else {
+      el.textContent = val;
+    }
   });
 
-  function animateRing() {
-    rx += (mx - rx) * 0.12;
-    ry += (my - ry) * 0.12;
-    ring.style.left = rx + 'px';
-    ring.style.top = ry + 'px';
-    requestAnimationFrame(animateRing);
-  }
-  animateRing();
-
-  // Hover effects
-  document.querySelectorAll('a, button, .event-card, input, select, label').forEach(el => {
-    el.addEventListener('mouseenter', () => {
-      cursor.style.width = '6px';
-      cursor.style.height = '6px';
-      ring.style.width = '50px';
-      ring.style.height = '50px';
-    });
-    el.addEventListener('mouseleave', () => {
-      cursor.style.width = '10px';
-      cursor.style.height = '10px';
-      ring.style.width = '36px';
-      ring.style.height = '36px';
-    });
+  // Placeholders
+  document.querySelectorAll('[data-ph-' + l + ']').forEach(el => {
+    el.placeholder = el.getAttribute('data-ph-' + l);
   });
 
-  // Form submission
-  function handleSubmit(e) {
-    e.preventDefault();
-    const btn = document.querySelector('.submit-btn');
-    btn.textContent = '✓ Registering...';
-    btn.style.background = 'rgba(201,168,76,0.5)';
+  // Select options
+  document.querySelectorAll('select option').forEach(opt => {
+    const v = opt.getAttribute('data-' + l);
+    if (v) opt.textContent = v;
+  });
+}
 
-    setTimeout(() => {
+/* ══ CURSOR ══ */
+const cur = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; cur.style.left=mx+'px'; cur.style.top=my+'px'; });
+(function loop(){ rx+=(mx-rx)*.12; ry+=(my-ry)*.12; ring.style.left=rx+'px'; ring.style.top=ry+'px'; requestAnimationFrame(loop); })();
+document.querySelectorAll('a,button,.event-card,input,select,label').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.width='6px';cur.style.height='6px';ring.style.width='50px';ring.style.height='50px';});
+  el.addEventListener('mouseleave',()=>{cur.style.width='10px';cur.style.height='10px';ring.style.width='36px';ring.style.height='36px';});
+});
+
+/* ══ FORM + BREVO INTEGRATION ══ */
+async function handleSubmit(e) {
+  e.preventDefault();
+  const btn = document.getElementById('submitBtn');
+  btn.style.background = 'rgba(201,168,76,.4)';
+  btn.innerHTML = lang === 'es' ? '⏳ Registrando...' : '⏳ Registering...';
+
+  // Collect form values
+  const inputs   = document.querySelectorAll('#signupForm .form-input');
+  const firstName = inputs[0].value.trim();
+  const lastName  = inputs[1].value.trim();
+  const email     = inputs[2].value.trim();
+  const phone     = inputs[3].value.trim();
+
+  const selects   = document.querySelectorAll('#signupForm .form-select');
+  const partySize = selects[0].value;
+  const vipPkg    = selects[1].value;
+
+  // Collect checked interests
+  const interests = [...document.querySelectorAll('#signupForm .interest-check input:checked')]
+    .map(cb => cb.closest('.interest-check').querySelector('.interest-check-label').textContent.trim())
+    .join(', ');
+
+  // ── PASTE YOUR BREVO API KEY ON THE LINE BELOW ──
+  const BREVO_API_KEY = 'YOUR_BREVO_API_KEY';
+  // ────────────────────────────────────────────────
+
+  const payload = {
+    email,
+    firstName,
+    lastName,
+    listIds: [5],
+    updateEnabled: true,
+    attributes: {
+      PHONE:      phone,
+      PARTY_SIZE: partySize,
+      VIP_PKG:    vipPkg,
+      INTERESTS:  interests,
+      SOURCE:     'WorldCup2026 Landing Page'
+    }
+  };
+
+  try {
+    const res = await fetch('https://api.brevo.com/v3/contacts', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'api-key': BREVO_API_KEY
+      },
+      body: JSON.stringify(payload)
+    });
+
+    if (res.ok || res.status === 204) {
+      // Success
       document.getElementById('signupForm').style.display = 'none';
-      document.getElementById('successState').style.display = 'block';
-    }, 1200);
+      const s = document.getElementById('successState');
+      s.style.display = 'block';
+      setLang(lang);
+    } else {
+      const err = await res.json();
+      console.error('Brevo error:', err);
+      btn.style.background = '#C0392B';
+      btn.innerHTML = lang === 'es' ? '❌ Error — intenta de nuevo' : '❌ Error — please try again';
+      setTimeout(() => {
+        btn.style.background = 'var(--gold)';
+        btn.innerHTML = lang === 'es'
+          ? '🥭 Reserva Mi Acceso VIP →'
+          : '🥭 Claim My VIP Access →';
+      }, 3000);
+    }
+  } catch (err) {
+    console.error('Network error:', err);
+    btn.style.background = '#C0392B';
+    btn.innerHTML = lang === 'es' ? '❌ Error de red — intenta de nuevo' : '❌ Network error — please try again';
+    setTimeout(() => {
+      btn.style.background = 'var(--gold)';
+      btn.innerHTML = lang === 'es'
+        ? '🥭 Reserva Mi Acceso VIP →'
+        : '🥭 Claim My VIP Access →';
+    }, 3000);
   }
+}
 
-  // Scroll-reveal animation
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.style.opacity = '1';
-        entry.target.style.transform = 'translateY(0)';
-      }
-    });
-  }, { threshold: 0.1 });
+/* ══ SCROLL REVEAL ══ */
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach(en => { if (en.isIntersecting) { en.target.style.opacity='1'; en.target.style.transform='translateY(0)'; } });
+}, {threshold:.08});
+document.querySelectorAll('.event-card,.benefit').forEach(el => {
+  el.style.opacity='0'; el.style.transform='translateY(20px)';
+  el.style.transition='opacity .6s ease,transform .6s ease';
+  revealObs.observe(el);
+});
 
-  document.querySelectorAll('.event-card, .stat, .benefit, .promo-card').forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(20px)';
-    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-    observer.observe(el);
-  });
-
-  // Animate stats counting up
-  document.querySelectorAll('.stat-num').forEach(el => {
-    const target = parseInt(el.textContent.replace('+', ''));
-    const hasPlus = el.textContent.includes('+');
-    let start = 0;
-    const duration = 1800;
-    const step = (timestamp) => {
-      if (!start) start = timestamp;
-      const progress = Math.min((timestamp - start) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      el.textContent = Math.floor(eased * target) + (hasPlus && progress === 1 ? '+' : '');
-      if (progress < 1) requestAnimationFrame(step);
-    };
-    const statObserver = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting) {
-        requestAnimationFrame(step);
-        statObserver.disconnect();
-      }
-    });
-    statObserver.observe(el);
-  });
+/* ══ STAT COUNTERS ══ */
+document.querySelectorAll('.stat-num').forEach(el => {
+  const target = parseInt(el.textContent.replace('+',''));
+  const plus = el.textContent.includes('+');
+  let done = false;
+  new IntersectionObserver(([entry], obs) => {
+    if (!entry.isIntersecting || done) return;
+    done = true; obs.disconnect();
+    let s=0;
+    (function step(ts){ if(!s)s=ts; const p=Math.min((ts-s)/1800,1); const e=1-Math.pow(1-p,3); el.textContent=Math.floor(e*target)+(plus&&p===1?'+':''); if(p<1)requestAnimationFrame(step); })(performance.now());
+  }).observe(el);
+});
 </script>
 </body>
 </html>
